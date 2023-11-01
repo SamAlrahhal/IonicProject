@@ -5,10 +5,16 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss'],
 })
-export class NavBarComponent  implements OnInit {
-
-  constructor() { }
+export class NavBarComponent implements OnInit {
+  constructor() {}
 
   ngOnInit() {}
 
+  goBack() {
+    window.history.back();
+  }
+
+  goForward() {
+    window.history.forward();
+  }
 }
