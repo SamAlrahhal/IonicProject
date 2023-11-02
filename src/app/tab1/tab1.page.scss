@@ -1,1 +1,12 @@
 
+.container {
+  display: flex;
+}
+
+.left-column {
+  flex: 0 0 auto;
+}
+
+.right-column {
+  flex: 1 1 auto;
+}
