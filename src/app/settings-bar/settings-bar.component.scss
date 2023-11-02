@@ -6,7 +6,17 @@
   background-color: #333333;
   color: #ffffff;
   border: 2px solid #007bff;
-  border-radius: 5px;
+  border-radius: 5px;.app-nav-bar,
+.app-settings-bar {
+  flex: 1; /* Added */
+  display: flex; /* Added */
+  flex-direction: column; /* Added */
+}
+
+.app-nav-view {
+  flex: 1 1 auto;
+}
+  height: 46%;
 }
 
 .settings-bar-heading {
@@ -20,7 +30,8 @@
   display: flex;
   align-items: center;
   margin-top: 10px;
-      width: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 label {
@@ -43,6 +54,7 @@ input[type="number"] {
   border-radius: 3px;
   cursor: pointer;
   width: 100%;
+  height: 70%;
 }
 
 .save-button:hover {
@@ -52,6 +64,7 @@ input[type="number"] {
 input{
   background-color: #333333;
   color: #ffffff;
+  height: 50%;
 }
 #width-input{
   width: 100%;
