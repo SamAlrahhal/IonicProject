@@ -1,0 +1,10 @@
+<form [formGroup]="fileForm">
+  <ion-item>
+    <ion-label>Filename</ion-label>
+    <ion-input formControlName="filename"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="filename?.invalid && filename?.touched">
+    <p style="color:red;">Filename cannot be empty</p>
+  </ion-item>
+  <ion-button expand="full" (click)="addFile()" [disabled]="!fileForm.valid">Add File</ion-button>
+</form>
