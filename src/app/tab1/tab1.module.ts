@@ -7,6 +7,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { NavViewComponent } from '../nav-view/nav-view.component';
 import { SettingsBarComponent } from '../settings-bar/settings-bar.component';
+import { TreeNodeComponent } from '../tree-node/tree-node.component';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 
@@ -23,6 +24,7 @@ import { Tab1PageRoutingModule } from './tab1-routing.module';
     NavBarComponent,
     NavViewComponent,
     SettingsBarComponent,
+    TreeNodeComponent,
   ],
 })
 export class Tab1PageModule {}

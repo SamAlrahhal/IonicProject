@@ -1,0 +1,6 @@
+<div *ngIf="node">
+  {{ node.name }}
+  <div *ngIf="node.children">
+    <app-tree-node *ngFor="let child of node.children" [node]="child"></app-tree-node>
+  </div>
+</div>
