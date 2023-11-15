@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Filesystem } from '@capacitor/filesystem';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Storage } from '@capacitor/storage';
 @Component({
   selector: 'app-nav-view',
@@ -7,15 +7,21 @@ import { Storage } from '@capacitor/storage';
   styleUrls: ['./nav-view.component.scss'],
 })
 export class NavViewComponent implements OnInit {
-  root = {
-    name: 'root',
-    children: [
-      { name: 'file1' },
-      { name: 'dir1', children: [{ name: 'file2' }, { name: 'file3' }] },
-    ],
-  };
+  root: any;
 
   constructor() {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    // Read the root directory
+    const result = await Filesystem.readdir({
+      path: '',
+      directory: Directory.Documents,
+    });
+
+    // Create the root object
+    this.root = {
+      name: 'root',
+      children: result.files.map((file) => ({ name: file })),
+    };
+  }
 }
