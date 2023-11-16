@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
-import { Storage } from '@capacitor/storage';
+
 @Component({
   selector: 'app-nav-view',
   templateUrl: './nav-view.component.html',
@@ -8,6 +8,9 @@ import { Storage } from '@capacitor/storage';
 })
 export class NavViewComponent implements OnInit {
   root: any;
+  loading = true;
+  currentDirectory: string = '';
+  selectedDirectory: string = 'selected dir';
 
   constructor() {}
 
@@ -15,13 +18,23 @@ export class NavViewComponent implements OnInit {
     // Read the root directory
     const result = await Filesystem.readdir({
       path: '',
-      directory: Directory.Documents,
+      directory: Directory.ExternalStorage,
     });
+
+    console.log('Readdir result:', JSON.stringify(result));
 
     // Create the root object
     this.root = {
-      name: 'root',
-      children: result.files.map((file) => ({ name: file })),
+      name: this.selectedDirectory,
+      children: result.files.map((file) => ({
+        name: file.name,
+        isDir: file.type === 'directory' ? 'D' : 'F',
+      })),
     };
+    this.currentDirectory = Directory.Documents;
+    console.log(this.currentDirectory);
+
+    // Set loading state to false
+    this.loading = false;
   }
 }
