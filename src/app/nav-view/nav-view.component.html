@@ -1,3 +1,8 @@
-<div *ngIf="!loading">
+<!-- <div *ngIf="!loading">
   <app-tree-node [node]="root" ></app-tree-node>
-</div>
+</div> -->
+
+
+<div *ngIf="!loading">
+    <app-tree-node *ngFor="let item of root" [node]="item" (click)="selected(item.name)"></app-tree-node>
+  </div>

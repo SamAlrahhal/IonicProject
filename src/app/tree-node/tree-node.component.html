@@ -1,6 +1,3 @@
 <div *ngIf="node">
-  [{{node.isDir}}] {{ node.name }}
-  <div *ngIf="node.children">
-    <app-tree-node *ngFor="let child of node.children" [node]="child" (click)="selected(child.name)"></app-tree-node>
-  </div>
+  [{{node.type==='directory'?'D':'F'}}] {{ node.name }}
 </div>
