@@ -24,6 +24,10 @@ export class NavViewComponent implements OnInit {
       await Filesystem.requestPermissions();
     }
 
+    this.serviceEvent.makeFileEvent.subscribe((name: string) => {
+      this.makeFile(name);
+    });
+
     // Subscribe to the goBackEvent
     this.serviceEvent.goBackEvent.subscribe(() => {
       this.goBack();
@@ -44,6 +48,26 @@ export class NavViewComponent implements OnInit {
     // Set loading state to false
     this.loading = false;
   }
+  async makeFile(name: string) {
+    // Convert the history array to a string
+    const historyString = this.history.join('\n');
+
+    // Write the history string to a file
+    await Filesystem.writeFile({
+      path: this.currentDirectory + '/' + name,
+      data: historyString,
+      directory: Directory.ExternalStorage,
+    });
+
+    // Refresh the current directory
+    const result = await Filesystem.readdir({
+      path: this.currentDirectory,
+      directory: Directory.ExternalStorage,
+    });
+
+    this.root = result.files;
+  }
+
   async goBack() {
     console.log('goBack');
     if (this.history.length <= 1) {

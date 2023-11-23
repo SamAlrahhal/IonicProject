@@ -12,11 +12,10 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {}
 
   goBack() {
-    //window.history.back();
-    this.serviceEvent.goBack();
+    this.serviceEvent.goBackEvent.emit();
   }
 
   goForward() {
-    //window.history.forward();
+    this.serviceEvent.goForwardEvent.emit();
   }
 }

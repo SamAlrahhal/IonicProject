@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { SharedEventsService } from '../shared-events.service';
 
 @Component({
   selector: 'app-add-file',
@@ -11,7 +12,10 @@ export class AddFileComponent {
     filename: ['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private serviceEvent: SharedEventsService
+  ) {}
 
   get filename() {
     return this.fileForm.get('filename');
@@ -19,8 +23,7 @@ export class AddFileComponent {
 
   addFile() {
     if (this.fileForm.valid) {
-      // Perform the button operation here
-      console.log('File added successfully');
+      this.serviceEvent.makeFileEvent.emit(this.filename?.value);
     }
   }
 }

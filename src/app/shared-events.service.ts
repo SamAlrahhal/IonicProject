@@ -6,10 +6,8 @@ import { EventEmitter } from '@angular/core';
 })
 export class SharedEventsService {
   goBackEvent = new EventEmitter();
+  goForwardEvent = new EventEmitter();
+  makeFileEvent = new EventEmitter();
 
   constructor() {}
-
-  goBack() {
-    this.goBackEvent.emit();
-  }
 }
