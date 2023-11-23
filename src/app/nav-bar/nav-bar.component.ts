@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedEventsService } from '../shared-events.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,15 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent implements OnInit {
-  constructor() {}
+  constructor(private serviceEvent: SharedEventsService) {}
 
   ngOnInit() {}
 
   goBack() {
-    window.history.back();
+    //window.history.back();
+    this.serviceEvent.goBack();
   }
 
   goForward() {
-    window.history.forward();
+    //window.history.forward();
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
+import { SharedEventsService } from '../shared-events.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-nav-view',
@@ -13,7 +15,7 @@ export class NavViewComponent implements OnInit {
   selectedDirectory: string = 'selected dir';
   history: string[] = [];
 
-  constructor() {}
+  constructor(private serviceEvent: SharedEventsService) {}
 
   async ngOnInit() {
     // Check permissions
@@ -21,6 +23,12 @@ export class NavViewComponent implements OnInit {
     if (publicStorage !== 'granted') {
       await Filesystem.requestPermissions();
     }
+
+    // Subscribe to the goBackEvent
+    this.serviceEvent.goBackEvent.subscribe(() => {
+      this.goBack();
+    });
+    this.history.push('');
 
     // Read the root directory
     const result = await Filesystem.readdir({
@@ -36,12 +44,27 @@ export class NavViewComponent implements OnInit {
     // Set loading state to false
     this.loading = false;
   }
+  async goBack() {
+    console.log('goBack');
+    if (this.history.length <= 1) {
+      return;
+    }
+    this.history.pop();
+    this.currentDirectory = this.history[this.history.length - 1];
+
+    const result = await Filesystem.readdir({
+      path: this.currentDirectory,
+      directory: Directory.ExternalStorage,
+    });
+
+    this.root = result.files;
+  }
 
   async selected(name: any) {
     console.log('selected', name);
-    this.history.push(name);
 
     const fullPath = this.currentDirectory + '/' + name;
+    this.history.push(fullPath);
 
     // Check if the file exists
     const stat = await Filesystem.stat({
