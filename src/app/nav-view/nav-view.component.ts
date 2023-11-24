@@ -14,6 +14,7 @@ export class NavViewComponent implements OnInit {
   currentDirectory: string = '';
   selectedDirectory: string = 'selected dir';
   history: string[] = [];
+  forwardHistory: string[] = [];
 
   constructor(private serviceEvent: SharedEventsService) {}
 
@@ -26,6 +27,9 @@ export class NavViewComponent implements OnInit {
 
     this.serviceEvent.makeFileEvent.subscribe((name: string) => {
       this.makeFile(name);
+    });
+    this.serviceEvent.goForwardEvent.subscribe(() => {
+      this.goForward();
     });
 
     // Subscribe to the goBackEvent
@@ -87,11 +91,31 @@ export class NavViewComponent implements OnInit {
     this.root = result.files;
   }
 
+  async goForward() {
+    console.log('goForward');
+    if (this.forwardHistory.length > 0) {
+      const nextDir = this.forwardHistory.pop();
+
+      if (nextDir) {
+        this.history.push(nextDir);
+
+        const result = await Filesystem.readdir({
+          path: nextDir,
+          directory: Directory.ExternalStorage,
+        });
+
+        this.currentDirectory = nextDir;
+        this.root = result.files;
+      }
+    }
+  }
+
   async selected(name: any) {
     console.log('selected', name);
 
     const fullPath = this.currentDirectory + '/' + name;
     this.history.push(fullPath);
+    this.forwardHistory.push(fullPath);
 
     // Check if the file exists
     const stat = await Filesystem.stat({
