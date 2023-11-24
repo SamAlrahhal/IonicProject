@@ -2,7 +2,7 @@
 <div class="settings-bar">
   <div class="input-container">
     <label for="width-input">Width:</label>
-    <input type="number" id="width-input" placeholder="Enter width" />
+    <input type="number" id="width-input" placeholder="Button" [(ngModel)]="inputValue"/>
   </div>
-  <ion-button class="save-button">Save</ion-button>
+  <ion-button class="save-button" (click)="changeWidth()">Save</ion-button>
 </div>
