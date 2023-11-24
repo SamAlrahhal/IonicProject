@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { SharedEventsService } from '../shared-events.service';
 
 @Component({
@@ -24,6 +24,7 @@ export class AddFileComponent {
   addFile() {
     if (this.fileForm.valid) {
       this.serviceEvent.makeFileEvent.emit(this.filename?.value);
+      this.filename?.setValue('');
     }
   }
 }

@@ -51,11 +51,14 @@ export class NavViewComponent implements OnInit {
   async makeFile(name: string) {
     // Convert the history array to a string
     const historyString = this.history.join('\n');
+    console.log('historyString:', historyString);
+
+    const base64Data = btoa(historyString);
 
     // Write the history string to a file
     await Filesystem.writeFile({
       path: this.currentDirectory + '/' + name,
-      data: historyString,
+      data: base64Data,
       directory: Directory.ExternalStorage,
     });
 
