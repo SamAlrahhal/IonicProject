@@ -44,8 +44,6 @@ export class NavViewComponent implements OnInit {
       directory: Directory.ExternalStorage,
     });
 
-    console.log('Readdir result:', JSON.stringify(result));
-
     // Create the root object
     this.root = result.files;
 
@@ -55,7 +53,6 @@ export class NavViewComponent implements OnInit {
   async makeFile(name: string) {
     // Convert the history array to a string
     const historyString = this.history.join('\n');
-    console.log('historyString:', historyString);
 
     const base64Data = btoa(historyString);
 
@@ -76,7 +73,6 @@ export class NavViewComponent implements OnInit {
   }
 
   async goBack() {
-    console.log('goBack');
     if (this.history.length <= 1) {
       return;
     }
@@ -92,7 +88,6 @@ export class NavViewComponent implements OnInit {
   }
 
   async goForward() {
-    console.log('goForward');
     if (this.forwardHistory.length > 0) {
       const nextDir = this.forwardHistory.pop();
 
@@ -111,8 +106,6 @@ export class NavViewComponent implements OnInit {
   }
 
   async selected(name: any) {
-    console.log('selected', name);
-
     const fullPath = this.currentDirectory + '/' + name;
     this.history.push(fullPath);
     this.forwardHistory.push(fullPath);
@@ -124,15 +117,12 @@ export class NavViewComponent implements OnInit {
     });
 
     if (stat.type === 'file') {
-      console.log('File does not exist:', fullPath);
     } else {
       // Navigate into the directory
       const result = await Filesystem.readdir({
         path: fullPath,
         directory: Directory.ExternalStorage,
       });
-
-      console.log('Readdir result:', JSON.stringify(result));
 
       // Update the current directory
       this.currentDirectory = fullPath;
