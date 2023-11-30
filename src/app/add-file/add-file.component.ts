@@ -23,6 +23,7 @@ export class AddFileComponent {
 
   addFile() {
     if (this.fileForm.valid) {
+      console.log('file is ' + this.filename?.value);
       this.serviceEvent.makeFileEvent.emit(this.filename?.value);
       this.filename?.setValue('');
     }

@@ -1,0 +1,18 @@
+{
+  "name": "project",
+  "version": "0.0.1",
+  "description": "file explorer",
+  "main": "index.js",
+  "scripts": {
+    "test": "ng test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "fun"
+  ],
+  "author": "Sam Al-Rahhal",
+  "license": "UNLICENCED"
+}
