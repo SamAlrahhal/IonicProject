@@ -3,10 +3,11 @@
   "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
         "project": ["tsconfig.json"],
-        "createDefaultProgram": true
+        "createDefaultProgram": true,
+        "ecmaVersion": "latest"
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
