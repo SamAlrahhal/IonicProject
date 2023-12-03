@@ -32,6 +32,7 @@
     "cordova-plugin-buildinfo": "^4.0.0",
     "electron": "^27.1.2",
     "ionicons": "^7.2.1",
+    "path-browserify": "^1.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

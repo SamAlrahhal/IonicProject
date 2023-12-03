@@ -15,6 +15,7 @@ export class NavViewComponent implements OnInit {
   selectedDirectory: string = 'selected dir';
   history: string[] = [];
   forwardHistory: string[] = [];
+  fullPathS: string = '';
 
   constructor(private serviceEvent: SharedEventsService) {}
 
@@ -50,6 +51,7 @@ export class NavViewComponent implements OnInit {
     // Set loading state to false
     this.loading = false;
   }
+
   async makeFile(name: string) {
     // Convert the history array to a string
     const historyString = this.history.join('\n');
@@ -109,6 +111,8 @@ export class NavViewComponent implements OnInit {
     const fullPath = this.currentDirectory + '/' + name;
     this.history.push(fullPath);
     this.forwardHistory.push(fullPath);
+
+    this.fullPathS = fullPath;
 
     // Check if the file exists
     const stat = await Filesystem.stat({
