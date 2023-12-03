@@ -1,5 +1,9 @@
 
 
+
 <div class="scrollable" *ngIf="!loading">
+  <div>
+    Current Directory: {{this.history}}
+  </div>
     <app-tree-node *ngFor="let item of root" [node]="item" (click)="selected(item.name)"></app-tree-node>
   </div>
