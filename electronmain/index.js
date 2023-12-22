@@ -9,6 +9,8 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    title: "File Explorer",
+    show: false,
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),
@@ -17,7 +19,10 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadFile("../www/index.html"); //WDA aangepast!!
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.on("did-finish-load", () => {
+    mainWindow.show();
+    mainWindow.focus();
+  });
 };
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
