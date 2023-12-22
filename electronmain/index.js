@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, ipcMain } = require("electron");
+const { shell } = require("electron");
 const { session } = require("electron");
 const path = require("path");
 const os = require("os");
@@ -49,6 +50,42 @@ app.whenReady().then(() => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
+
+//verify webview options
+app.on("web-contents-created", (event, contents) => {
+  contents.on("will-attach-webview", (event, webPreferences, params) => {
+    // Strip away preload scripts if unused or verify their location is legitimate
+    delete webPreferences.preload;
+    delete webPreferences.preloadURL;
+    // Disable Node.js integration
+    webPreferences.nodeIntegration = false;
+  });
+});
+
+//disable or limit navigation
+app.on("web-contents-created", (event, contents) => {
+  contents.on("will-navigate", (event, navigationUrl) => {
+    const parsedUrl = new URL(navigationUrl);
+    if (parsedUrl.origin !== "https://example.com") {
+      event.preventDefault();
+    }
+  });
+});
+
+//disable or limit new window
+app.on("web-contents-created", (event, contents) => {
+  contents.on("new-window", async (event, navigationUrl) => {
+    event.preventDefault();
+
+    await shell.openExternal(navigationUrl);
+  });
+});
+
+//disable remote module
+app.on("remote-require", (event, webContents, moduleName) => {
+  event.preventDefault();
+});
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 // Example IPC communication
